@@ -1,14 +1,12 @@
 class Scrabble
   attr_accessor :total
   def initialize
-    @total = 0
   end
 
   def score(word)
     return 0 if word.nil?
     word_with_no_punctuation = word.sub(" ", "").delete ".,/*!?@#$%;:-"
-    word_with_no_punctuation.chars.map {|char| @total += point_values.fetch(char.upcase)}
-    @total
+    word_with_no_punctuation.chars.map {|char| point_values.fetch(char.upcase)}.reduce(0, :+)
   end
 
   def point_values
